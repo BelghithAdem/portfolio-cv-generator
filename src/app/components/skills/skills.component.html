@@ -1,0 +1,154 @@
+<div class="work-experince-container card bg-white rounded-lg shadow p-6">
+    <div class="header flex items-center gap-2 mb-4">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-6 w-6 text-gray-600">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z"></path>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.867 19.125h.008v.008h-.008v-.008z"></path>
+      </svg>
+      <span class="font-medium">SKILLS</span>
+    </div>
+    
+    <div class="input mb-4">
+      <label class="block text-sm font-medium text-gray-700 mb-1"
+        >Skills List
+        <button class="inline-flex items-center ml-1">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-4 w-4 text-gray-700">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"></path>
+          </svg>
+        </button>
+      </label>
+      <div
+        class="editable px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
+        contenteditable="true"
+        [id]="'skillsInput' + 0"
+        (input)="onAutoResize($event, 'skillsInput' + 0, 0)"
+      >
+        <ul style="margin: 0px; padding-top: 7px">
+          <li></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="dotted-border border-t border-dashed border-gray-300 my-4"></div>
+    <label class="block text-sm font-medium text-gray-700 mb-1">Featured Skills (Optional)</label>
+    <span class="text-sm text-gray-500 mb-4 block"
+      >Featured skills is optional to highlight top skills, with more circles
+      mean higher proficiency.</span
+    >
+    
+    <div class="feature-section space-y-4 mb-4">
+      <div class="feature flex items-center gap-2">
+        <input
+          type="text"
+          placeholder="Software Engineer"
+          [(ngModel)]="resumeValue.resume.skills.featuredSkills[0].skill"
+          class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        @for (circle of rating1; track $index) {
+        <div
+          class="round w-4 h-4 rounded-full"
+          [ngClass]="{
+            'bg-blue-500': isBlue($index, rating1),
+            'bg-gray-300': !isBlue($index, rating1)
+          }"
+          (click)="toggleColor($index, rating1)"
+        ></div>
+        }
+      </div>
+      <div class="feature flex items-center gap-2">
+        <input
+          type="text"
+          placeholder="Software Engineer"
+          [(ngModel)]="resumeValue.resume.skills.featuredSkills[1].skill"
+          class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        @for (circle of rating2; track $index) {
+        <div
+          class="round w-4 h-4 rounded-full"
+          [ngClass]="{
+            'bg-blue-500': isBlue($index, rating2),
+            'bg-gray-300': !isBlue($index, rating2)
+          }"
+          (click)="toggleColor($index, rating2)"
+        ></div>
+        }
+      </div>
+    </div>
+    
+    <div class="feature-section space-y-4 mb-4">
+      <div class="feature flex items-center gap-2">
+        <input
+          type="text"
+          placeholder="Software Engineer"
+          [(ngModel)]="resumeValue.resume.skills.featuredSkills[2].skill"
+          class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        @for (circle of rating3; track $index) {
+        <div
+          class="round w-4 h-4 rounded-full"
+          [ngClass]="{
+            'bg-blue-500': isBlue($index, rating3),
+            'bg-gray-300': !isBlue($index, rating3)
+          }"
+          (click)="toggleColor($index, rating3)"
+        ></div>
+        }
+      </div>
+      <div class="feature flex items-center gap-2">
+        <input
+          type="text"
+          placeholder="Software Engineer"
+          [(ngModel)]="resumeValue.resume.skills.featuredSkills[3].skill"
+          class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        @for (circle of rating4; track $index) {
+        <div
+          class="round w-4 h-4 rounded-full"
+          [ngClass]="{
+            'bg-blue-500': isBlue($index, rating4),
+            'bg-gray-300': !isBlue($index, rating4)
+          }"
+          (click)="toggleColor($index, rating4)"
+        ></div>
+        }
+      </div>
+    </div>
+    
+    <div class="feature-section space-y-4">
+      <div class="feature flex items-center gap-2">
+        <input
+          type="text"
+          placeholder="Software Engineer"
+          [(ngModel)]="resumeValue.resume.skills.featuredSkills[4].skill"
+          class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        @for (circle of rating5; track $index) {
+        <div
+          class="round w-4 h-4 rounded-full"
+          [ngClass]="{
+            'bg-blue-500': isBlue($index, rating5),
+            'bg-gray-300': !isBlue($index, rating5)
+          }"
+          (click)="toggleColor($index, rating5)"
+        ></div>
+        }
+      </div>
+      <div class="feature flex items-center gap-2">
+        <input
+          type="text"
+          placeholder="Software Engineer"
+          [(ngModel)]="resumeValue.resume.skills.featuredSkills[5].skill"
+          class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        @for (circle of rating6; track $index) {
+        <div
+          class="round w-4 h-4 rounded-full"
+          [ngClass]="{
+            'bg-blue-500': isBlue($index, rating6),
+            'bg-gray-300': !isBlue($index, rating6)
+          }"
+          (click)="toggleColor($index, rating6)"
+        ></div>
+        }
+      </div>
+    </div>
+  </div>

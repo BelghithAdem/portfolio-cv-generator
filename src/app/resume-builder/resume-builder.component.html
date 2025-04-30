@@ -1,0 +1,47 @@
+<div class="main-container flex flex-col lg:flex-row gap-6 p-4">
+  <div class="input-container flex-1 space-y-6">
+    <app-profile 
+      [resumeValue]="resumeValue"
+      (autoResize)="autoResize($event.event, $event.id, $event.index)"
+    ></app-profile>
+    
+    <app-work-experience
+      [resumeValue]="resumeValue"
+      (autoResize)="autoResize($event.event, $event.id, $event.index)"
+      (addNew)="addNew($event)"
+    ></app-work-experience>
+    
+    <app-education
+      [resumeValue]="resumeValue"
+      (autoResize)="autoResize($event.event, $event.id, $event.index)"
+      (addNew)="addNew($event)"
+    ></app-education>
+    
+    <app-projects
+      [resumeValue]="resumeValue"
+      (autoResize)="autoResize($event.event, $event.id, $event.index)"
+      (addNew)="addNew($event)"
+    ></app-projects>
+    
+    <app-skills
+      [resumeValue]="resumeValue"
+      (autoResize)="autoResize($event.event, $event.id, $event.index)"
+    ></app-skills>
+    
+    <app-resume-settings
+      [themeColorValue]="themeColorValue"
+      [fontFamilyValue]="fontFamilyValue"
+      [fontSize]="fontSize"
+      (themeColorChange)="themeColor($event)"
+      (fontFamilyChange)="fontFamily($event)"
+      (fontSizeChange)="fontValue($event)"
+    ></app-resume-settings>
+  </div>
+  
+  <div #resumePreview class="resume-container flex-1">
+    <app-resume-preview
+      [resumeValue]="resumeValue"
+      (exportToPDF)="exportToPDF()"
+    ></app-resume-preview>
+  </div>
+</div>

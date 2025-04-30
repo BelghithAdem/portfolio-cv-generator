@@ -1,0 +1,20 @@
+/* resume-builder.component.scss */
+.resume-preview-container {
+  background-color: white;
+  width: 210mm; /* A4 width */
+  min-height: 297mm; /* A4 height */
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+  /* Ensure all text is black for printing */
+  * {
+    color: #000 !important;
+  }
+}
+
+/* Hide elements during PDF generation */
+.pdf-export {
+  button {
+    display: none !important;
+  }
+}

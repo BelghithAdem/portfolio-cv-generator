@@ -1,0 +1,92 @@
+<div class="work-experince-container card bg-white rounded-lg shadow p-6">
+  <div class="header flex items-center gap-2 mb-4">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-6 w-6 text-gray-600">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"></path>
+    </svg>
+    <span class="font-medium">PROJECT</span>
+  </div>
+  
+  <div class="two-input flex gap-4 mb-4">
+    <div class="input" style="width: 65%">
+      <label class="block text-sm font-medium text-gray-700 mb-1">Project Name</label>
+      <input
+        type="text"
+        placeholder="Software Engineer"
+        [(ngModel)]="resumeValue.resume.projects[0].project"
+        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+    <div class="input" style="width: 30%">
+      <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+      <input
+        type="text"
+        placeholder="winter 2022"
+        [(ngModel)]="resumeValue.resume.projects[0].date"
+        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+  </div>
+  
+  <div class="input mb-4">
+    <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+    <div
+      class="editable px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
+      contenteditable="true"
+      [id]="'projectDescription' + 0"
+      (input)="onAutoResize($event, 'projectDescription' + 0, 0)"
+    >
+      <ul style="margin: 0px; padding-top: 7px">
+        <li></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="button-container">
+    <button 
+      (click)="onAddNew('projects')"
+      class="flex items-center px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+      </svg>
+      Add Project
+    </button>
+  </div>
+  
+  @for (workExperience of resumeValue.resume.projects.slice(1); track $index) {
+    <div class="dotted-border border-t border-dashed border-gray-300 my-4"></div>
+    <div class="two-input flex gap-4 mb-4">
+      <div class="input" style="width: 65%">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Project Name</label>
+        <input
+          type="text"
+          placeholder="Software Engineer"
+          [(ngModel)]="resumeValue.resume.projects[$index + 1].project"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div class="input" style="width: 30%">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+        <input
+          type="text"
+          placeholder="winter 2022"
+          [(ngModel)]="resumeValue.resume.projects[$index + 1].date"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+    </div>
+    <div class="input mb-4">
+      <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+      <div
+        class="editable px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
+        contenteditable="true"
+        [id]="'projectDescription' + ($index + 1)"
+        (input)="onAutoResize($event, 'projectDescription' + ($index + 1), $index + 1)"
+      >
+        <ul style="margin: 0px; padding-top: 7px">
+          <li></li>
+        </ul>
+      </div>
+    </div>
+  }
+</div>

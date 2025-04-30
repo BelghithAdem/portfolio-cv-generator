@@ -1,0 +1,149 @@
+<div class="work-experince-container card bg-white rounded-lg shadow p-6">
+    <div class="header flex items-center gap-2 mb-4">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-6 w-6 text-gray-600">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"></path>
+      </svg>
+      <span class="font-medium">EDUCATION</span>
+    </div>
+    
+    <div class="two-input flex gap-4 mb-4">
+      <div class="input" style="width: 65%">
+        <label class="block text-sm font-medium text-gray-700 mb-1">School</label>
+        <input
+          type="text"
+          placeholder="Software Engineer"
+          [(ngModel)]="resumeValue.resume.educations[0].school"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div class="input" style="width: 30%">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+        <input
+          type="text"
+          placeholder="Jun 2022 - Present"
+          [(ngModel)]="resumeValue.resume.educations[0].date"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+    </div>
+    
+    <div class="two-input flex gap-4 mb-4">
+      <div class="input" style="width: 65%">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Degree & Major</label>
+        <input
+          type="text"
+          placeholder="Software Engineer"
+          [(ngModel)]="resumeValue.resume.educations[0].degree"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div class="input" style="width: 30%">
+        <label class="block text-sm font-medium text-gray-700 mb-1">GPA</label>
+        <input
+          type="text"
+          placeholder="3.81"
+          [(ngModel)]="resumeValue.resume.educations[0].gpa"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+    </div>
+    
+    <div class="input mb-4">
+      <label class="block text-sm font-medium text-gray-700 mb-1"
+        >Additional Information (Optional)
+        <button class="inline-flex items-center ml-1">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-4 w-4 text-gray-700">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"></path>
+          </svg>
+        </button>
+      </label>
+      <div
+        class="editable px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
+        contenteditable="true"
+        [id]="'additionalInput' + 0"
+        (input)="onAutoResize($event, 'id', index || 0)">
+        <ul style="margin: 0px; padding-top: 7px">
+          <li></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="button-container">
+      <button 
+      (click)="onAddNew('educations')"
+        class="flex items-center px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+        </svg>
+        Add School
+      </button>
+    </div>
+    
+    @for (workExperience of resumeValue.resume.educations.slice(1); track $index) {
+      <div class="dotted-border border-t border-dashed border-gray-300 my-4"></div>
+  
+      <div class="two-input flex gap-4 mb-4">
+        <div class="input" style="width: 65%">
+          <label class="block text-sm font-medium text-gray-700 mb-1">School</label>
+          <input
+            type="text"
+            placeholder="Software Engineer"
+            [(ngModel)]="resumeValue.resume.educations[$index + 1].school"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div class="input" style="width: 30%">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+          <input
+            type="text"
+            placeholder="Jun 2022 - Present"
+            [(ngModel)]="resumeValue.resume.educations[$index + 1].date"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
+      
+      <div class="two-input flex gap-4 mb-4">
+        <div class="input" style="width: 65%">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Degree & Major</label>
+          <input
+            type="text"
+            placeholder="Software Engineer"
+            [(ngModel)]="resumeValue.resume.educations[$index + 1].degree"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div class="input" style="width: 30%">
+          <label class="block text-sm font-medium text-gray-700 mb-1">GPA</label>
+          <input
+            type="text"
+            placeholder="3.81"
+            [(ngModel)]="resumeValue.resume.educations[$index + 1].gpa"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
+      
+      <div class="input mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Additional Information (Optional)
+          <button class="inline-flex items-center ml-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-4 w-4 text-gray-700">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"></path>
+            </svg>
+          </button>
+        </label>
+        <div
+          class="editable px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
+          contenteditable="true"
+          [id]="'additionalInput' + ($index + 1)"
+          (input)="onAutoResize($event, 'additionalInput' + (i + 1), i + 1)"
+          >
+          <ul style="margin: 0px; padding-top: 7px">
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    }
+  </div>
