@@ -1,32 +1,71 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common'; // ✅ à ajouter
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import { SevicesService } from '../../services/sevices.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
+  templateUrl: './login.component.html'
 })
-export class LoginComponent {
-  username: string = '';
-  password: string = '';
-  message: string = '';
 
-  // Données statiques pour la validation
-  private validUsername: string = 'admin';
-  private validPassword: string = 'password123';
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
+  loading = false;
+  submitted = false;
+  error = '';
+  returnUrl: string = '/';
 
-  constructor(private router: Router) {}
-
-  onSubmit(): void {
-    if (this.username === this.validUsername && this.password === this.validPassword) {
-      this.message = 'Connexion réussie!';
-      this.router.navigate(['/user'], { queryParams: { username: this.username } });
-    } else {
-      this.message = 'Nom d\'utilisateur ou mot de passe incorrect.';
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: SevicesService
+  ) {
+    // Redirect to home if already logged in
+    if (this.authService.currentUserValue) {
+      this.router.navigate(['/']);
     }
+  }
+
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+
+    // Get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
+
+  // Convenience getter for easy access to form fields
+  get f() { return this.loginForm.controls; }
+
+  onSubmit() {
+    this.submitted = true;
+
+    // Stop here if form is invalid
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.loading = true;
+    this.authService.login(this.f['email'].value, this.f['password'].value)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.router.navigate([this.returnUrl]);
+        },
+        error: error => {
+          this.error = error;
+          this.loading = false;
+        }
+      });
   }
 }

@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { NavbarComponent } from '../components/navbar/navbar.component';
 
 
 @Component({
@@ -25,7 +26,8 @@ import jsPDF from 'jspdf';
     ProjectsComponent,
     SkillsComponent,
     ResumeSettingsComponent,
-    ResumePreviewComponent
+    ResumePreviewComponent,
+    NavbarComponent
   ],
   templateUrl: './resume-builder.component.html',
   styleUrl: './resume-builder.component.scss',

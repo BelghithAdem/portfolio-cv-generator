@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './education.component.html',
-  styleUrl: './education.component.css'
 })
 export class EducationComponent {
   @Input() resumeValue!: Resume;

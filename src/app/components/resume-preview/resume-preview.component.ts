@@ -8,7 +8,6 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './resume-preview.component.html',
-  styleUrl: './resume-preview.component.css'
 })
 export class ResumePreviewComponent {
   @Input() resumeValue!: Resume;

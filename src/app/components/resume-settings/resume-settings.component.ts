@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './resume-settings.component.html',
-  styleUrl: './resume-settings.component.css'
 })
 export class ResumeSettingsComponent {
   @Input() themeColorValue: string | undefined;

@@ -1,0 +1,39 @@
+<nav class="bg-gray-800 text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <a routerLink="/" class="text-xl font-bold">Resume App</a>
+      
+      <div class="flex space-x-4">
+        @if (currentUser) {
+            <a 
+            routerLink="/user" 
+            routerLinkActive="bg-gray-700" 
+            class="hover:bg-gray-700 px-3 py-1 rounded"
+          >
+            Profile
+          </a>
+          <span class="flex items-center">Welcome, {{ currentUser.username }}!</span>
+          <button 
+            (click)="logout()" 
+            class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded"
+          >
+            Logout
+          </button>
+        } @else {
+          <a 
+            routerLink="/login" 
+            routerLinkActive="bg-gray-700" 
+            class="hover:bg-gray-700 px-3 py-1 rounded"
+          >
+            Login
+          </a>
+          <a 
+            routerLink="/register" 
+            routerLinkActive="bg-gray-700" 
+            class="hover:bg-gray-700 px-3 py-1 rounded"
+          >
+            Register
+          </a>
+        }
+      </div>
+    </div>
+  </nav>

@@ -1,0 +1,232 @@
+<app-navbar></app-navbar>
+<div class="container mx-auto p-4">
+    <div class="mx-auto max-w-3xl">
+      <!-- Profile Form -->
+      <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h1 class="text-2xl font-bold mb-6">Profile</h1>
+        
+        <form [formGroup]="profileForm" (ngSubmit)="onProfileSubmit()">
+          <h2 class="text-xl font-semibold mb-4">Update Profile Information</h2>
+          
+          <!-- Success Message -->
+          @if (success.profile) {
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+              <span class="block sm:inline">Profile updated successfully!</span>
+            </div>
+          }
+          
+          <!-- Error Message -->
+          @if (error.profile) {
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+              <span class="block sm:inline">{{ error.profile }}</span>
+            </div>
+          }
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+              Username
+            </label>
+            <input 
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+              id="username" 
+              type="text" 
+              formControlName="username" 
+              [ngClass]="{ 'border-red-500': submitted.profile && pf['username'].errors }"
+            >
+            @if (submitted.profile && pf['username'].errors) {
+              <div class="text-red-500 text-xs mt-1">
+                @if (pf['username'].errors['required']) {
+                  <div>Username is required</div>
+                }
+              </div>
+            }
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+              Email
+            </label>
+            <input 
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+              id="email" 
+              type="email" 
+              formControlName="email" 
+              [ngClass]="{ 'border-red-500': submitted.profile && pf['email'].errors }"
+            >
+            @if (submitted.profile && pf['email'].errors) {
+              <div class="text-red-500 text-xs mt-1">
+                @if (pf['email'].errors['required']) {
+                  <div>Email is required</div>
+                }
+                @if (pf['email'].errors['email']) {
+                  <div>Email must be a valid email address</div>
+                }
+              </div>
+            }
+          </div>
+          
+          <div class="flex justify-end">
+            <button 
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+              type="submit"
+              [disabled]="loading.profile"
+            >
+              @if (loading.profile) {
+                <span class="spinner-border spinner-border-sm mr-1"></span>
+              }
+              Update Profile
+            </button>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Password Change Form -->
+      <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
+          <h2 class="text-xl font-semibold mb-4">Change Password</h2>
+          
+          <!-- Success Message -->
+          @if (success.password) {
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+              <span class="block sm:inline">Password changed successfully!</span>
+            </div>
+          }
+          
+          <!-- Error Message -->
+          @if (error.password) {
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+              <span class="block sm:inline">{{ error.password }}</span>
+            </div>
+          }
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="currentPassword">
+              Current Password
+            </label>
+            <input 
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+              id="currentPassword" 
+              type="password" 
+              formControlName="currentPassword" 
+              [ngClass]="{ 'border-red-500': submitted.password && pwf['currentPassword'].errors }"
+            >
+            @if (submitted.password && pwf['currentPassword'].errors) {
+              <div class="text-red-500 text-xs mt-1">
+                @if (pwf['currentPassword'].errors['required']) {
+                  <div>Current password is required</div>
+                }
+              </div>
+            }
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="newPassword">
+              New Password
+            </label>
+            <input 
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+              id="newPassword" 
+              type="password" 
+              formControlName="newPassword" 
+              [ngClass]="{ 'border-red-500': submitted.password && pwf['newPassword'].errors }"
+            >
+            @if (submitted.password && pwf['newPassword'].errors) {
+              <div class="text-red-500 text-xs mt-1">
+                @if (pwf['newPassword'].errors['required']) {
+                  <div>New password is required</div>
+                }
+                @if (pwf['newPassword'].errors['minlength']) {
+                  <div>Password must be at least 6 characters</div>
+                }
+              </div>
+            }
+          </div>
+          
+          <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="confirmPassword">
+              Confirm New Password
+            </label>
+            <input 
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+              id="confirmPassword" 
+              type="password" 
+              formControlName="confirmPassword" 
+              [ngClass]="{ 'border-red-500': submitted.password && pwf['confirmPassword'].errors }"
+            >
+            @if (submitted.password && pwf['confirmPassword'].errors) {
+              <div class="text-red-500 text-xs mt-1">
+                @if (pwf['confirmPassword'].errors['required']) {
+                  <div>Confirm password is required</div>
+                }
+                @if (pwf['confirmPassword'].errors['mustMatch']) {
+                  <div>Passwords must match</div>
+                }
+              </div>
+            }
+          </div>
+          
+          <div class="flex justify-end">
+            <button 
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+              type="submit"
+              [disabled]="loading.password"
+            >
+              @if (loading.password) {
+                <span class="spinner-border spinner-border-sm mr-1"></span>
+              }
+              Change Password
+            </button>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Delete Account Section -->
+      <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4">Delete Account</h2>
+        <p class="text-gray-600 mb-4">Once you delete your account, there is no going back. Please be certain.</p>
+        
+        <!-- Error Message -->
+        @if (error.delete) {
+          <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <span class="block sm:inline">{{ error.delete }}</span>
+          </div>
+        }
+        
+        <!-- Delete Confirmation Dialog -->
+        @if (showDeleteConfirm) {
+          <div class="bg-red-50 border border-red-200 rounded-md p-4 mb-4">
+            <p class="text-red-700 font-medium mb-2">Are you sure you want to delete your account?</p>
+            <p class="text-red-600 mb-4">This action cannot be undone.</p>
+            <div class="flex space-x-2">
+              <button 
+                (click)="confirmDelete()" 
+                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                [disabled]="loading.delete"
+              >
+                @if (loading.delete) {
+                  <span class="spinner-border spinner-border-sm mr-1"></span>
+                }
+                Yes, Delete My Account
+              </button>
+              <button 
+                (click)="cancelDelete()" 
+                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        }
+        
+        <!-- Delete Button -->
+        @if (!showDeleteConfirm) {
+          <button 
+            (click)="showDeleteConfirmation()" 
+            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Delete Account
+          </button>
+        }
+      </div>
+    </div>
+  </div>

@@ -1,7 +1,25 @@
-<div class="user-container">
-    <div class="user-box">
-      <h2>Welcome, {{ userName }} !</h2>
-      <p>Email: {{ userEmail }}</p>
+<app-navbar></app-navbar>
+<div class="container mx-auto p-4">
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <h1 class="text-2xl font-bold mb-4">Welcome to the Dashboard</h1>
+    
+    @if (currentUser) {
+      <div class="bg-gray-100 p-4 rounded-md mb-4">
+        <h2 class="text-xl font-semibold mb-2">User Information</h2>
+        <p><strong>Username:</strong> {{ currentUser.username }}</p>
+        <p><strong>Email:</strong> {{ currentUser.email }}</p>
+        <p><strong>User ID:</strong> {{ currentUser.id }}</p>
+      </div>
+    }
+    
+    <div class="mt-6">
+      <h3 class="text-lg font-semibold mb-2">What you can do:</h3>
+      <ul class="list-disc pl-5 space-y-1">
+        <li>This is a protected page that only logged-in users can access</li>
+        <li>Try logging out and accessing this page again</li>
+        <li>You'll be redirected to the login page</li>
+      </ul>
     </div>
+    <a routerLink="/update" class="text-blue-600 hover:underline">Update User</a>
   </div>
-  
+</div>
