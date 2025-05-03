@@ -1,11 +1,12 @@
 import { Routes } from '@angular/router';
 import { ResumeBuilderComponent } from './resume-builder/resume-builder.component';
 import { guardAuthGuard } from './guard/guard-auth.guard';
+import { GestionUserComponent } from './gestion-user/gestion-user.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'resume-builder',
+    redirectTo: 'gestion-user',  // Rediriger par défaut vers gestion-user
     pathMatch: 'full'
   },
   {
@@ -25,13 +26,7 @@ export const routes: Routes = [
       .then(m => m.RegisterComponent),
     title: 'Register'
   },
-  {
-    path: 'user',
-    loadComponent: () => import('./components/user/user.component')
-      .then(m => m.HomeComponent),
-    canActivate: [guardAuthGuard],
-    title: 'User Profile'
-  },
+
   {
     path: 'update',
     loadComponent: () => import('./components/update-user/update-user.component')
@@ -40,7 +35,11 @@ export const routes: Routes = [
     title: 'Update Profile'
   },
   {
-    path: '**',
-    redirectTo: 'resume-builder'
+    path: 'gestion-user',  // Route pour gestion-user
+    component: GestionUserComponent,
+  },
+  {
+    path: '**',  // Catch-all pour toute route non définie
+    redirectTo: 'gestion-user'
   }
 ];
