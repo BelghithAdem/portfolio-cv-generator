@@ -1,0 +1,117 @@
+<app-navbar></app-navbar>
+<div class="p-4 max-w-xl mx-auto bg-white rounded-lg shadow-md mt-10">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Upload Your CV</h2>
+    
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">Select CV File (PDF or Word)</label>
+      <div class="relative border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors">
+        <input 
+          type="file" 
+          (change)="onFileChange($event)" 
+          accept=".pdf,.doc,.docx" 
+          class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+        />
+        <div class="flex flex-col items-center justify-center">
+          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+          </svg>
+          <p class="mt-1 text-sm text-gray-600">
+            <span class="font-medium text-blue-600">Click to upload</span> or drag and drop
+          </p>
+          <p class="text-xs text-gray-500 mt-1">PDF, DOC, DOCX up to 5MB</p>
+        </div>
+      </div>
+    </div>
+  
+    @if (extractedCVService.isLoading) {
+      <div class="flex items-center justify-center p-4">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <span class="ml-3 text-blue-600">Processing your CV...</span>
+      </div>
+    }
+  
+    @if (extractedCVService.errorMessage) {
+      <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-4 rounded">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-red-700">{{ extractedCVService.errorMessage }}</p>
+          </div>
+        </div>
+      </div>
+    }
+  
+    @if (extractedCVService.extractedCV) {
+      <div class="bg-gray-50 p-6 rounded-lg mt-6 border border-gray-200">
+        <h3 class="text-xl font-semibold mb-4 text-gray-800">Extracted CV Details</h3>
+        
+        <div class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm font-medium text-gray-500">Full Name</p>
+              <p class="mt-1 text-gray-900">{{ extractedCVService.extractedCV.name || 'Not specified' }}</p>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-gray-500">Email</p>
+              <p class="mt-1 text-gray-900">{{ extractedCVService.extractedCV.email || 'Not specified' }}</p>
+            </div>
+            @if (extractedCVService.extractedCV.phone) {
+              <div>
+                <p class="text-sm font-medium text-gray-500">Phone</p>
+                <p class="mt-1 text-gray-900">{{ extractedCVService.extractedCV.phone }}</p>
+              </div>
+            }
+          </div>
+  
+          <div>
+            <p class="text-sm font-medium text-gray-500 mb-2">Skills</p>
+            @if (extractedCVService.extractedCV.skills?.length) {
+              <div class="flex flex-wrap gap-2">
+                @for (skill of extractedCVService.extractedCV.skills; track $index) {
+                  <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">
+                    {{ skill }}
+                  </span>
+                }
+              </div>
+            } @else {
+              <p class="text-gray-500 italic">No skills listed</p>
+            }
+          </div>
+  
+          <div>
+            <p class="text-sm font-medium text-gray-500 mb-2">Experience</p>
+            @if (extractedCVService.extractedCV.experience?.length) {
+              <ul class="space-y-2">
+                @for (exp of extractedCVService.extractedCV.experience; track $index) {
+                  <li class="text-gray-700 pl-4 border-l-2 border-blue-200">
+                    {{ exp }}
+                  </li>
+                }
+              </ul>
+            } @else {
+              <p class="text-gray-500 italic">No experience listed</p>
+            }
+          </div>
+  
+          <div>
+            <p class="text-sm font-medium text-gray-500 mb-2">Education</p>
+            @if (extractedCVService.extractedCV.education?.length) {
+              <ul class="space-y-2">
+                @for (edu of extractedCVService.extractedCV.education; track $index) {
+                  <li class="text-gray-700 pl-4 border-l-2 border-blue-200">
+                    {{ edu }}
+                  </li>
+                }
+              </ul>
+            } @else {
+              <p class="text-gray-500 italic">No education listed</p>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>

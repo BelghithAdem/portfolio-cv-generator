@@ -33,6 +33,13 @@ export const routes: Routes = [
     title: 'User Profile'
   },
   {
+    path: 'upload',
+    loadComponent: () => import('./components/cv-uploader/cv-uploader.component')
+      .then(m => m.CvUploaderComponent),
+    canActivate: [guardAuthGuard],
+    title: 'upload cv'
+  },
+  {
     path: 'update',
     loadComponent: () => import('./components/update-user/update-user.component')
       .then(m => m.ProfileComponent),
