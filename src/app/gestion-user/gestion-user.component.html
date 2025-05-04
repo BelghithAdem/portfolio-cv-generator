@@ -1,0 +1,58 @@
+<!-- Formulaire pour ajouter ou modifier un utilisateur -->
+<form (ngSubmit)="onAdd()">
+  <label for="username">Nom d'utilisateur</label>
+  <input [(ngModel)]="formData.username" name="username" id="username" required />
+  
+  <label for="email">Email</label>
+  <input [(ngModel)]="formData.email" name="email" id="email" required />
+  
+  <label for="creationDate">Date de création</label>
+  <input [(ngModel)]="formData.creationDate" name="creationDate" id="creationDate" required type="date" />
+  
+  <button type="submit" class="btn submit-btn">{{ isEditing ? 'Modifier' : 'Ajouter' }}</button>
+</form>
+
+<!-- Pop-up de confirmation -->
+<div *ngIf="showConfirmPopup" class="popup-overlay">
+  <div class="popup">
+    <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
+    <button (click)="onDeleteConfirmed()">Confirmer</button>
+    <button (click)="onDeleteCancelled()">Annuler</button>
+  </div>
+</div>
+
+<div class="user-list">
+  <div class="user-card" *ngFor="let user of users; let i = index">
+    <div class="user-info">
+      <h3>{{ user.username }}</h3>
+      <p>Email : {{ user.email }}</p>
+      <p>Date de création : {{ user.creationDate | date:'shortDate' }}</p>
+    </div>
+    <div class="user-actions">
+      <button (click)="onEdit(user, i)" class="btn edit">Modifier</button>
+      <button (click)="onDeleteConfirmation(i)" class="btn delete">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<table class="user-table">
+  <thead>
+    <tr>
+      <th>Nom d'utilisateur</th>
+      <th>Email</th>
+      <th>Date de création</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users; let i = index">
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.creationDate | date:'shortDate' }}</td>
+      <td>
+        <button class="btn edit" (click)="onEdit(user, i)">Modifier</button>
+        <button class="btn delete" (click)="onDeleteConfirmation(i)">Supprimer</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
